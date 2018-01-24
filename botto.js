@@ -44,7 +44,7 @@
 
 		// get configuration from server
 		return botto.http({
-			url: (host ? host : ('https://' + system + '.bottomatik.com')) + '/api/configuration/fb/config',
+			url: 'https://' + (host ? host : (system + '.bottomatik.com')) + '/api/configuration/fb/config',
 			method: 'GET',
 			headers: {
 				'X-Botto-Script': 'botto-on-facebook'
