@@ -17,6 +17,38 @@
 	var botto = {};
 	botto.config = {};
 
+	botto.chat = {};
+	botto.chat.open = function(system, container, options){
+		if(!container){
+			throw new Error('[BOTTO][CHAT] Container is needed');
+		}
+		
+		if(!options){
+			options = {};
+		}
+
+		let iframe = document.createElement('iframe');
+		if(options.style){
+			for(k in options.style){
+				iframe.style[k] = options.style[k];
+			}
+		}
+
+		if(!options.style || !options.style.width){
+			iframe.style.width = '100%';
+		}
+
+		if(!options.style || !options.style.height){
+			iframe.style.height = '100%';
+		}
+
+		iframe.style.border = 'none';
+
+		iframe.src = 'https://' + (options.host ? options.host : 'bot.bottomatik.com') + '/chat/' + system;
+		container.appendChild(iframe);
+		return iframe;
+	};
+
 	botto.facebook = {};
 	botto.facebook.config = {};
 
