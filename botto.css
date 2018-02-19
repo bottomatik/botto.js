@@ -1,0 +1,23 @@
+.botto-chat {
+	position: fixed;
+	bottom: 100px;
+	right: 20px;
+	height: 600px;
+	width: 350px;
+}
+
+.botto-button {
+	position:  fixed;
+	bottom: 20px;
+	right: 20px;
+}
+
+.botto-button a {
+	display: inline-block;
+	width: 65px;
+	height: 65px;
+	border-radius: 1000px;
+	cursor: pointer;
+	background-image: url('https://cdn-images-1.medium.com/max/1200/1*RDCeh0T550NAnEwSZpFQ8A.png');
+	background-size: cover;
+}

@@ -8,11 +8,13 @@ Bottomatik's webchat in the future.
 ## Web Chat
 In order to use Bottomatik's webchat, you can simply use the bundled function within this library.
 
-> _*Note:*_ It is important to note that the open and close button for the iFrame MUST BE implemented
+> _*Note:*_ It is important to note that the **open and close** button(s) for the iFrame MUST BE implemented
 by you.
 
+**Important**: The iFrame MUST NOT be loaded along with the website (ie: the link must not be implemented
+directly on the HTML). It HAS TO BE loaded on a user click. Look at the full example at the end of this section.
 ```javascript
-botto.chat.open(system, container, [options]);
+botto.chat.make(system, container, [options]);
 ```
 
 | Name | Required | Type | Description |
@@ -21,12 +23,22 @@ botto.chat.open(system, container, [options]);
 | container | true | HTMLElement | THe container in which to place the iframe, typically, a `div` |
 | options | false | Object | An object containing options for the iframe. Right now only `style` (Object) is supported, and all keys will be translated to CSS properties |
 
-Example:
+Full Example:
 ```javascript
-botto.chat.open('mysuperfestival', div, {
-	style: {
-		border: '1px solid',
-		backgroundImage: 'url(\'http://images.com/image.png\')'
+mybutton.addEeventListener('click', function(e){
+	e.preventDefault();
+	if(botto.chat.exists()){
+		// show or hide container div
+
+	} else {
+		botto.chat.make('mysuperfestival', div, {
+			style: {
+				border: '1px solid',
+				backgroundImage: 'url(\'http://images.com/image.png\')'
+			}
+		});
+
+		// show or hide container div
 	}
 });
 ```

@@ -18,13 +18,59 @@
 	botto.config = {};
 
 	botto.chat = {};
-	botto.chat.open = function(system, container, options){
+	botto.chat.__open = false;
+	botto.chat.__iframe = null;
+
+	botto.chat.button = function(system, options){
+		// creates chat div
+		let container = document.createElement('div');
+		container.classList.add('botto-chat');
+		document.body.appendChild(container);
+
+		// creates button
+		let div = document.createElement('div');
+		div.classList.add('botto-button');
+		
+		let button = document.createElement('a');
+
+		button.addEventListener('click', function(e){
+			e.preventDefault();
+			botto.chat.show(system, container, options);
+		});
+		div.appendChild(button);
+		document.body.appendChild(div);
+		return container;
+	};
+
+	botto.chat.show = function(system, container, options){
+		if(!botto.chat.__iframe){
+			botto.chat.make(system, container, options);
+		}
+
+		if(botto.chat.__open){
+			container.style.display = 'none';
+			botto.chat.__open = false;
+		} else {
+			container.style.display = 'block';
+			botto.chat.__open = true;
+		}
+	};
+
+	botto.chat.exists = function(){
+		return !!botto.chat.__iframe;
+	};
+
+	botto.chat.make = function(system, container, options){
 		if(!container){
 			throw new Error('[BOTTO][CHAT] Container is needed');
 		}
 		
 		if(!options){
 			options = {};
+		}
+
+		if(botto.chat.__iframe){
+			return;
 		}
 
 		let iframe = document.createElement('iframe');
@@ -42,10 +88,14 @@
 			iframe.style.height = '100%';
 		}
 
+		iframe.setAttribute('allow', 'geolocation; microphone; camera; midi');
+		iframe.style.borderRadius = '5px';
 		iframe.style.border = 'none';
 
 		iframe.src = 'https://' + (options.host ? options.host : 'bot.bottomatik.com') + '/chat/' + system;
 		container.appendChild(iframe);
+
+		botto.chat.__iframe = iframe;
 		return iframe;
 	};
 
